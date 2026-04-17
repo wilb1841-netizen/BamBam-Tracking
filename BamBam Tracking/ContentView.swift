@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var taskGroups = TaskGroup.sampleData //pre-existing data from TaskModel file
-    @State private var selectedGroup: TaskGroup?
-    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+    @State private var taskGroups = [TaskGroup] = []
+    @State private var selectedGroup: TaskGroup? // selected group
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all // navigation side panel
     @State private var isShowingAddGroup = false
+    @Environment(\.scenePhase) private var scenePhase
+    let saveKey = "taskGroupData"
     
     
     var body: some View {
@@ -49,11 +51,42 @@ struct ContentView: View {
                         .sheet(isPresented: $isShowingAddGroup) {
                             NewGroupView { NewGroup in
                                 taskGroups.append(NewGroup)
-                                selectedGroup = NewGroup
+                                selectedGroup = NewGroup // automatically show up the details of the new group I created
+                                
                             }
                         }
-                }
+                        .onAppear{
+                            loadData()
+                        }
+        onChange(of: scenePhase) {oldValue, newValue in
+            if newValue == .active {
+                print("App is ACTIVE")
+            }else if newValue == .inactive {
+                print("App is inActive")
+            }else if newValue == .background {
+                print("Data is being saved")
+                saveData()
             }
+        }
+    }
+                }
+                // Data Persistence
+    func saveData() {
+        if let encodeedData = try? JSONEncoder().encode(taskGroups) {
+            // save it in userDefaults
+            UserDefaults.standard.set(encodeedData, forKey:saveKey)
+        }
+        
+    }
+    func loadData() {
+        if let saveData = UserDefaults.standard.data(forKey: saveKey) {
+            iflet decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
+                taskGroups = decodedGroups
+                return
+            }
+        }
+        taskGroups = TaskGroup.sampleData //if no datas was found to load
+    }
             
         
             

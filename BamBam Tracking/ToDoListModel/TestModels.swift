@@ -9,7 +9,7 @@
 
 import Foundation
 
-struct TaskItem: Identifiable, Hashable {
+struct TaskItem: Identifiable, Hashable, Codable {
     let id = UUID()
     var title: String
     var isCompleted: Bool = false
@@ -22,12 +22,12 @@ struct TaskGroup: Identifiable, Hashable {
     var tasks: [TaskItem]
 }
 
-// pre-existing data
+// Mock Data
 extension TaskGroup {
     static let sampleData: [TaskGroup] = [
-        TaskGroup(title: "School", symbolName: "book.fill", tasks: [
-            TaskItem(title: "Do homework"),
-            TaskItem(title: "Submit assignment", isCompleted: true)
+        TaskGroup(title: "Groceries", symbolName: "storefront.circle.fill", tasks: [
+            TaskItem(title: "Buy Apples"),
+            TaskItem(title: "Buy Milk ")
             ]),
         TaskGroup(title: "Home", symbolName: "house.fill", tasks: [
             TaskItem(title: "Walk the dog", isCompleted: true ),

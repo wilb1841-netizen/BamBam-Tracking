@@ -12,10 +12,17 @@ import SwiftUI
 struct TaskGroupDetailView: View {
     
     @Binding var groups: TaskGroup
+    @Environment(\.horizontalSizeClass) var sizeClass : UserInterfaceSizeClass
     
     var body: some View {
-        
         List {
+            Section{
+                if sizeClass == .regular {
+                    GroupStatsView(tasks: group.tasks)
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(color(.systemGroupedBackground))
+                }
+            }
             ForEach($groups.tasks) { $task in
                 HStack {
                     Image(systemName: task.isCompleteed ?  "checkmark.circle.fill" : "circle")
@@ -30,7 +37,7 @@ struct TaskGroupDetailView: View {
                 }
           }
             .onDelete { index in
-                groups.tasks.remove(atOffsets: index)
+                groups.tasks.remove(atOffsets: indeces)
             }
         }
         .navigationTitle(groups.title)
