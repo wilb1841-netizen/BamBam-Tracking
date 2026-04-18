@@ -12,20 +12,20 @@ import SwiftUI
 struct TaskGroupDetailView: View {
     
     @Binding var groups: TaskGroup
-    @Environment(\.horizontalSizeClass) var sizeClass : UserInterfaceSizeClass
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
         List {
             Section{
                 if sizeClass == .regular {
-                    GroupStatsView(tasks: group.tasks)
+                    GroupStateView(task: groups.tasks)
                         .listRowInsets(EdgeInsets())
-                        .listRowBackground(color(.systemGroupedBackground))
+                        .listRowBackground(Color(.systemGroupedBackground))
                 }
             }
             ForEach($groups.tasks) { $task in
                 HStack {
-                    Image(systemName: task.isCompleteed ?  "checkmark.circle.fill" : "circle")
+                    Image(systemName: task.isCompleted ?  "checkmark.circle.fill" : "circle")
                         .foregroundStyle(task.isCompleted ? .blue : .gray)
                         .onTapGesture {
                             withAnimation{
@@ -33,11 +33,11 @@ struct TaskGroupDetailView: View {
                             }
                         }
                     TextField("Task Title", text: $task.title)
-                        .strikethroug(task.iscompleted)
+                        .strikethrough(task.isCompleted)
                 }
           }
             .onDelete { index in
-                groups.tasks.remove(atOffsets: indeces)
+                groups.tasks.remove(atOffsets: index)
             }
         }
         .navigationTitle(groups.title)

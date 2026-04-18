@@ -4,19 +4,18 @@
 //
 //  Created by Wilbert Baker on 4/11/26.
 //
-
 //Brain where all the logic will be
 
 import Foundation
 
 struct TaskItem: Identifiable, Hashable, Codable {
-    let id = UUID()
+    var id = UUID()
     var title: String
     var isCompleted: Bool = false
 }
 
-struct TaskGroup: Identifiable, Hashable {
-    let id = UUID()
+struct TaskGroup: Identifiable, Hashable, Codable {
+    var id = UUID()
     var title: String
     var symbolName: String
     var tasks: [TaskItem]

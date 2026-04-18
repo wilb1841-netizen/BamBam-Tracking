@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var taskGroups = [TaskGroup] = []
+    @State private var taskGroups : [TaskGroup] = []
     @State private var selectedGroup: TaskGroup? // selected group
     @State private var columnVisibility: NavigationSplitViewVisibility = .all // navigation side panel
     @State private var isShowingAddGroup = false
@@ -38,26 +38,26 @@ struct ContentView: View {
                     }
                     
                 }}
-                detail  : {
-                    if let group = selectedGroup {
-                        if let index = taskGroups.firstIndex(where: {$0.id == group.id}) {
-                            TaskGroupDetailView(group: $taskGroups[index])
-                        }
-                        }
-                        else {
-                            ContentUnavailableView("Select a Group", systemImage: "sidebar.left")
-                        }
-                    }
-                        .sheet(isPresented: $isShowingAddGroup) {
-                            NewGroupView { NewGroup in
-                                taskGroups.append(NewGroup)
-                                selectedGroup = NewGroup // automatically show up the details of the new group I created
-                                
-                            }
-                        }
-                        .onAppear{
-                            loadData()
-                        }
+        detail  : {
+            if let group = selectedGroup {
+                if let index = taskGroups.firstIndex(where: {$0.id == group.id}) {
+                    TaskGroupDetailView(groups: $taskGroups[index])
+                }
+            }
+            else {
+                ContentUnavailableView("Select a Group", systemImage: "sidebar.left")
+            }
+        }
+        .sheet(isPresented: $isShowingAddGroup) {
+            NewGroupView { NewGroup in
+                taskGroups.append(NewGroup)
+                selectedGroup = NewGroup // automatically show up the details of the new group I created
+                
+            }
+        }
+        .onAppear{
+            loadData()
+        }
         onChange(of: scenePhase) {oldValue, newValue in
             if newValue == .active {
                 print("App is ACTIVE")
@@ -69,8 +69,8 @@ struct ContentView: View {
             }
         }
     }
-                }
-                // Data Persistence
+    
+    // Data Persistence
     func saveData() {
         if let encodeedData = try? JSONEncoder().encode(taskGroups) {
             // save it in userDefaults
@@ -80,13 +80,13 @@ struct ContentView: View {
     }
     func loadData() {
         if let saveData = UserDefaults.standard.data(forKey: saveKey) {
-            iflet decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
+        if let decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
                 taskGroups = decodedGroups
                 return
             }
         }
         taskGroups = TaskGroup.sampleData //if no datas was found to load
     }
-            
-        
-            
+    
+    
+}

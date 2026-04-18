@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewGroupView: View {
-    @Environment(\.dismiss) var dismis
+    @Environment(\.dismiss) var dismiss
     @State private var groupName = ""
     @State private var selectedIcon = "list, bullet"
     let icons = ["list.bullet", "star.fill", "house.fill", "star"]
@@ -33,11 +33,26 @@ struct NewGroupView: View {
                                     selectedIcon = icon
                                 }
                             
-                     }
-                    }
-                }
-            }
-            .navigationTitle(placement: .cancel)
-        
-    }
-}
+                        }
+                                            }
+                                            .padding(.vertical)
+                                        }
+                                    }
+                                    .navigationTitle("New Group")
+                                    .toolbar {
+                                        ToolbarItem(placement: .cancellationAction) {
+                                            Button("Cancel") { dismiss() }
+                                        }
+                                        
+                                        ToolbarItem(placement: .confirmationAction) {
+                                            Button("Save") {
+                                                let newGroup = TaskGroup(title: groupName, symbolName: selectedIcon, tasks: [])
+                                                onSave(newGroup)
+                                                dismiss()
+                                            }
+                                            .disabled(groupName.isEmpty)
+                                        }
+                                    }
+                                }
+                            }
+                        }
