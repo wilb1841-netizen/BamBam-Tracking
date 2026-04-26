@@ -30,14 +30,13 @@ struct GroupStateView : View {
             .frame (width: 60, height: 60)
             .padding()
             
-                     VStack(alignment: .leading){
-                         Text("Task Progress")
+            VStack(alignment: .leading){
+                Text("Task Progress")
                 Text("\(completedCount) / \(task.count)")
+            }
+            Spacer()
+            
+            
         }
-        Spacer()
-     }
-    .padding()
-    .background(Color(.secondarySystemBackground))
-    
-   }
+    }
 }

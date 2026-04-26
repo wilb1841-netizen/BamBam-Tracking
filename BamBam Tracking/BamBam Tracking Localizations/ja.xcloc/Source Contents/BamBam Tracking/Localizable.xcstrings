@@ -1,0 +1,52 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld / %lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld / %2$lld"
+          }
+        }
+      }
+    },
+    "%lld%%" : {
+
+    },
+    "Add Task" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "e.g. Work" : {
+
+    },
+    "Group Name" : {
+
+    },
+    "New Group" : {
+
+    },
+    "Save" : {
+
+    },
+    "Select a Group" : {
+
+    },
+    "Select Icon" : {
+
+    },
+    "Task Progress" : {
+
+    },
+    "Task Title" : {
+
+    },
+    "ToDo APP" : {
+
+    }
+  },
+  "version" : "1.1"
+}

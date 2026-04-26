@@ -20,6 +20,13 @@ struct TaskGroup: Identifiable, Hashable, Codable {
     var symbolName: String
     var tasks: [TaskItem]
 }
+// ADD NEW MODEL PROFILE (name, profleimage, groups)
+struct Profile: Identifiable, Hashable, Codable {
+    var id = UUID()
+    var name: String
+    var profileimage: String
+    var groups: [TaskGroup]
+}
 
 // Mock Data
 extension TaskGroup {
@@ -33,5 +40,13 @@ extension TaskGroup {
             TaskItem(title: "Clean the kictchen")
             
         ])
+    ]
+}
+
+
+extension Profile {
+    static let sampleProfile: [Profile] = [
+        Profile(name: "Professor", profileimage: "", groups: TaskGroup.sampleData),
+        Profile(name: "Student", profileimage:"", groups:[])
     ]
 }

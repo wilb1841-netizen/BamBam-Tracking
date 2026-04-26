@@ -20,7 +20,7 @@ struct TaskGroupDetailView: View {
                 if sizeClass == .regular {
                     GroupStateView(task: groups.tasks)
                         .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color(.systemGroupedBackground))
+                      
                 }
             }
             ForEach($groups.tasks) { $task in

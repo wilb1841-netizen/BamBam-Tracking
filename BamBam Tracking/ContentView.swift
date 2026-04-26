@@ -12,15 +12,16 @@ struct ContentView: View {
     @State private var selectedGroup: TaskGroup? // selected group
     @State private var columnVisibility: NavigationSplitViewVisibility = .all // navigation side panel
     @State private var isShowingAddGroup = false
+    let saveKey = "savedtaskGroups"
     @Environment(\.scenePhase) private var scenePhase
-    let saveKey = "taskGroupData"
-    
+    @Environment(\.dismiss)private var dismiss
+    @Binding var profiles: Profile
     
     var body: some View {
-        //Column 1: Left
         NavigationSplitView(columnVisibility: $columnVisibility) {
+            //SIDEBAR
             List (selection: $selectedGroup) {
-                ForEach(taskGroups) {group in // loops through the elements
+                ForEach(profiles.groups) {group in // loops through the elements
                     NavigationLink(value: group) { //go to the selected group
                         Label(group.title, systemImage: group.symbolName)  // show title & symbol
                     }
@@ -28,20 +29,31 @@ struct ContentView: View {
             }
             
             
-            navigationTitle("ToDo APP")
-                .listStyle(.sidebar)
-                .toolbar {
+            .navigationTitle("ToDo APP")
+            .listStyle(.sidebar)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
                     Button{
+                        dismiss()
+                    }label: {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight:.bold))
+                            .foregroundColor(Color(.secondaryLabel))
+                    }
+                    
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
                         isShowingAddGroup = true
                     }label: {
                         Image(systemName: "plus")
                     }
-                    
-                }}
-        detail  : {
+                }
+            }
+        }detail  : {
             if let group = selectedGroup {
-                if let index = taskGroups.firstIndex(where: {$0.id == group.id}) {
-                    TaskGroupDetailView(groups: $taskGroups[index])
+                if let index = profiles.groups.firstIndex(where: {$0.id == group.id}) {
+                    TaskGroupDetailView(groups: $profiles.groups[index])
                 }
             }
             else {
@@ -50,8 +62,8 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isShowingAddGroup) {
             NewGroupView { NewGroup in
-                taskGroups.append(NewGroup)
-                selectedGroup = NewGroup // automatically show up the details of the new group I created
+                profiles.groups.append(NewGroup)
+                
                 
             }
         }
@@ -72,7 +84,7 @@ struct ContentView: View {
     
     // Data Persistence
     func saveData() {
-        if let encodeedData = try? JSONEncoder().encode(taskGroups) {
+        if let encodeedData = try? JSONEncoder().encode(profiles.groups) {
             // save it in userDefaults
             UserDefaults.standard.set(encodeedData, forKey:saveKey)
         }
@@ -80,12 +92,13 @@ struct ContentView: View {
     }
     func loadData() {
         if let saveData = UserDefaults.standard.data(forKey: saveKey) {
-        if let decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
-                taskGroups = decodedGroups
+           if let decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
+               profiles.groups = decodedGroups // HERE
                 return
             }
         }
-        taskGroups = TaskGroup.sampleData //if no datas was found to load
+        // show mock data for dev purposes
+        profiles.groups = TaskGroup.sampleData // HERE
     }
     
     
