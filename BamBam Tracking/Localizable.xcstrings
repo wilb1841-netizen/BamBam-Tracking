@@ -131,6 +131,7 @@
       }
     },
     "ToDo APP" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {

@@ -83,7 +83,7 @@ struct ContentView: View {
     
     // Data Persistence
     func saveData() {
-        if let encodeedData = try? JSONEncoder().encode(profiles.groups) {
+        if let encodeedData = try? JSONEncoder().encode(profile.groups) {
             // save it in userDefaults
             UserDefaults.standard.set(encodeedData, forKey:saveKey)
         }
@@ -92,12 +92,12 @@ struct ContentView: View {
     func loadData() {
         if let saveData = UserDefaults.standard.data(forKey: saveKey) {
            if let decodedGroups = try? JSONDecoder().decode([TaskGroup].self, from: saveData) {
-               profiles.groups = decodedGroups // HERE
+               profile.groups = decodedGroups // HERE
                 return
             }
         }
         // show mock data for dev purposes
-        profiles.groups = TaskGroup.sampleData // HERE
+        profile.groups = TaskGroup.sampleData // HERE
     }
     
     
