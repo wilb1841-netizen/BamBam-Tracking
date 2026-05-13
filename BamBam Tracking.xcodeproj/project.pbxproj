@@ -40,11 +40,6 @@
 			path = "BamBam TrackingTests";
 			sourceTree = "<group>";
 		};
-		CCEE39D72F8AE980002B4375 /* BamBam TrackingUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "BamBam TrackingUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +72,6 @@
 			children = (
 				CCEE39BF2F8AE97C002B4375 /* BamBam Tracking */,
 				CCEE39CD2F8AE980002B4375 /* BamBam TrackingTests */,
-				CCEE39D72F8AE980002B4375 /* BamBam TrackingUITests */,
 				CCEE39BE2F8AE97C002B4375 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -152,9 +146,6 @@
 			);
 			dependencies = (
 				CCEE39D62F8AE980002B4375 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				CCEE39D72F8AE980002B4375 /* BamBam TrackingUITests */,
 			);
 			name = "BamBam TrackingUITests";
 			packageProductDependencies = (

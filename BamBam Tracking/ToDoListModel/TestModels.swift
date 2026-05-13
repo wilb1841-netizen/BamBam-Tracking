@@ -24,7 +24,7 @@ struct TaskGroup: Identifiable, Hashable, Codable {
 struct Profile: Identifiable, Hashable, Codable {
     var id = UUID()
     var name: String
-    var profileimage: String
+    var profileImage: String
     var groups: [TaskGroup]
 }
 
@@ -46,7 +46,7 @@ extension TaskGroup {
 
 extension Profile {
     static let sampleProfile: [Profile] = [
-        Profile(name: "Professor", profileimage: "", groups: TaskGroup.sampleData),
-        Profile(name: "Student", profileimage:"", groups:[])
+        Profile(name: "Professor", profileImage: "professor", groups: TaskGroup.sampleData),
+        Profile(name: "Student", profileImage:"student", groups:[])
     ]
 }

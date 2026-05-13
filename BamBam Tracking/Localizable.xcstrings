@@ -67,6 +67,9 @@
         }
       }
     },
+    "Home" : {
+
+    },
     "New Group" : {
       "localizations" : {
         "ja" : {
@@ -76,9 +79,6 @@
           }
         }
       }
-    },
-    "Profile Menu" : {
-
     },
     "Save" : {
       "localizations" : {
@@ -140,10 +140,10 @@
         }
       }
     },
-    "Welcome Back" : {
+    "Welcom to ToDo App" : {
 
     },
-    "Who is logging in today?" : {
+    "Who is working today?" : {
 
     }
   },

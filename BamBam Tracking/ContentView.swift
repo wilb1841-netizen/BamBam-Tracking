@@ -15,21 +15,19 @@ struct ContentView: View {
     let saveKey = "savedtaskGroups"
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dismiss)private var dismiss
-    @Binding var profiles: Profile
+    @Binding var profile: Profile
     
     var body: some View {
         NavigationSplitView(columnVisibility: $columnVisibility) {
             //SIDEBAR
             List (selection: $selectedGroup) {
-                ForEach(profiles.groups) {group in // loops through the elements
+                ForEach(profile.groups) {group in // loops through the elements
                     NavigationLink(value: group) { //go to the selected group
                         Label(group.title, systemImage: group.symbolName)  // show title & symbol
                     }
                 }
             }
-            
-            
-            .navigationTitle("ToDo APP")
+            .navigationTitle(profile.name)
             .listStyle(.sidebar)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -48,12 +46,13 @@ struct ContentView: View {
                     }label: {
                         Image(systemName: "plus")
                     }
+                    .accessibilityIdentifier("AddGroupButton")
                 }
             }
         }detail  : {
             if let group = selectedGroup {
-                if let index = profiles.groups.firstIndex(where: {$0.id == group.id}) {
-                    TaskGroupDetailView(groups: $profiles.groups[index])
+                if let index = profile.groups.firstIndex(where: {$0.id == group.id}) {
+                    TaskGroupDetailView(groups: $profile.groups[index])
                 }
             }
             else {
@@ -62,7 +61,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isShowingAddGroup) {
             NewGroupView { NewGroup in
-                profiles.groups.append(NewGroup)
+                profile.groups.append(NewGroup)
                 
                 
             }

@@ -11,7 +11,7 @@ import SwiftUI
 struct BamBam_TrackingApp: App {
     var body: some Scene {
         WindowGroup {
-        DashBoardView()
+        DashboardView()
         }
     }
 }

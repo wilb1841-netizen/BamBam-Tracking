@@ -20,6 +20,7 @@ struct NewGroupView: View {
                 // Section1: Group title
                 Section("Group Name"){
                     TextField("e.g. Work", text: $groupName)
+                        .accessibilityIdentifier("GroupNameTextField")
                 }
                 // Section 2: symbol Icon
                 Section("Select Icon"){
@@ -32,7 +33,7 @@ struct NewGroupView: View {
                                 .onTapGesture{
                                     selectedIcon = icon
                                 }
-                            
+                                .accessibilityIdentifier("Icon_\(icon)") //ID for each icon                            
                         }
                                             }
                                             .padding(.vertical)
@@ -50,6 +51,7 @@ struct NewGroupView: View {
                                                 onSave(newGroup)
                                                 dismiss()
                                             }
+                                            .accessibilityIdentifier("SaveGroup")
                                             .disabled(groupName.isEmpty)
                                         }
                                     }
